@@ -1,5 +1,5 @@
-
 #pragma once
+
 #ifndef RATIONAL_RATIONAL_HPP_20230215
 #define RATIONAL_RATIONAL_HPP_20230215
 
@@ -39,28 +39,29 @@ public:
 private:
     int32_t gcd(int32_t a, int32_t b) const;
     void reducing();
+
 private:
     int32_t num{ 0 };
     int32_t denom{ 1 };
 
     static const char slash{ '/' };
 };
-
+//#
 std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs);
 std::istream& operator>>(std::istream& istrm, Rational& rhs);
-
+//#
 Rational& operator+(Rational& rhs);
 Rational& operator-(Rational& rhs);
-
+//#
 Rational operator+(Rational lhs, const Rational& rhs);
 Rational operator-(Rational lhs, const Rational& rhs);
 Rational operator*(Rational lhs, const Rational& rhs);
 Rational operator/(Rational lhs, const Rational& rhs);
 Rational sqr(Rational myRat);
 Rational pow(Rational myRat, const int32_t power);
-
+//#
 Rational operator%(Rational lhs, const Rational& rhs);
-
+//#
 bool operator==(Rational lhs, const Rational& rhs);
 bool operator>(Rational lhs, const Rational& rhs);
 bool operator<(Rational lhs, const Rational& rhs);
