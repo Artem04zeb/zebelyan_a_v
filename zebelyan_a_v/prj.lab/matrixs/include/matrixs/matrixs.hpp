@@ -1,55 +1,35 @@
 #pragma once
-
-#ifndef MATRIXS_MATRIXS_HPP_20230403
-#define MATRIXS_MATRIXS_HPP_20230403
-
+#ifndef MATRIXS_MATRIXS_HPP_20230330
+#define MATRIXS_MATRIXS_HPP_20230330
 #include <iosfwd>
 #include <tuple>
 
-using namespace std;
-
-
 class MatrixS {
 public:
-	MatrixS();
-	MatrixS(const int n, const int m);
+	using SizeType = std::tuple<std::ptrdiff_t, std::ptrdiff_t>;
+public:
+	[[nodiscard]] std::ptrdiff_t nRows() const noexcept;
+	[[nodiscard]] std::ptrdiff_t nCols() const noexcept;
+	[[nodiscard]] int& at(const SizeType& elem);
+	[[nodiscard]] const int& at(const SizeType& elem) const;
+	[[nodiscard]] int& at(const std::ptrdiff_t i, const std::ptrdiff_t j);
+	[[nodiscard]] const int& at(const std::ptrdiff_t i, const std::ptrdiff_t j) const;
+	[[nodiscard]] const SizeType& ssize() const noexcept;
+	
+	MatrixS(const MatrixS& other);
+	MatrixS(std::ptrdiff_t m, std::ptrdiff_t n);
 	~MatrixS();
+	explicit MatrixS(const SizeType& size = { 0, 0 });
 
-	/**
-	 * \return количество строк в матрице (m)
-	 */
-	int nRows();
+	void resize(const SizeType& new_size);
+	void resize(const std::ptrdiff_t i, const std::ptrdiff_t j);
 
-	/**
-	 * \return количество столбцов в матрице (n)
-	 */
-	int nCols();
-
-	/**
-	 *  Возвращает элемент матрицы под индексами {i, j}
-	 */
-	int& at(int i, int j);
-
-	/**
-	 * \return текущий размер матрицы {m, n}
-	 */
-	tuple<int, int> ssize();
-
-	/**
-	 * \brief Изменение размера матрицы
-	*/
-	void resize(int columns_new, int rows_new);
-
-	/**
-	 *  Проверяет входные данные
-	 */
-	bool check_size(int rows, int columns);
+	MatrixS& operator=(const MatrixS& rhs);
 
 private:
-	int columns = 0;
-	int rows = 0;
-	int* dina = nullptr;
-	int* dina2 = nullptr;
+	std::ptrdiff_t row_ = 0;
+	std::ptrdiff_t col_ = 0;
+	int** data_ = nullptr;
 };
 
 #endif 
