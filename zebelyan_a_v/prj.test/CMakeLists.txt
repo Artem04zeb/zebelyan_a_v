@@ -8,7 +8,7 @@ add_test(NAME matrixs.test COMMAND matrixs.test)
 
 add_executable(arrayd.test arrayd.test.cpp)
 target_link_libraries(arrayd.test arrayd doctest::doctest)
-add_test(NAME arrayd.test COMMAND arrayds.test)
+add_test(NAME arrayd.test COMMAND arrayd.test)
 
 add_executable(arrayt.test arrayt.test.cpp)
 target_link_libraries(arrayt.test arrayt doctest::doctest)
