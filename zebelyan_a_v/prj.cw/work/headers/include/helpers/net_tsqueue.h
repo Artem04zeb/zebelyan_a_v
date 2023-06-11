@@ -15,21 +15,21 @@ namespace olc
 			virtual ~tsqueue() { clear(); }
 
 		public:
-			/// Возвращает и поддерживает элемент в начале очереди
+			/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Рё РїРѕРґРґРµСЂР¶РёРІР°РµС‚ СЌР»РµРјРµРЅС‚ РІ РЅР°С‡Р°Р»Рµ РѕС‡РµСЂРµРґРё
 			const T& front()
 			{
 				std::scoped_lock lock(muxQueue);
 				return deqQueue.front();
 			}
 
-			/// Возвращает и сохраняет элемент в конце очереди
+			/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Рё СЃРѕС…СЂР°РЅСЏРµС‚ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅС†Рµ РѕС‡РµСЂРµРґРё
 			const T& back()
 			{
 				std::scoped_lock lock(muxQueue);
 				return deqQueue.back();
 			}
 
-			/// Удаляет и возвращает элемент из передней части очереди
+			/// РЈРґР°Р»СЏРµС‚ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СЌР»РµРјРµРЅС‚ РёР· РїРµСЂРµРґРЅРµР№ С‡Р°СЃС‚Рё РѕС‡РµСЂРµРґРё
 			T pop_front()
 			{
 				std::scoped_lock lock(muxQueue);
@@ -38,7 +38,7 @@ namespace olc
 				return t;
 			}
 
-			/// Удаляет и возвращает элемент из передней части очереди
+			/// РЈРґР°Р»СЏРµС‚ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СЌР»РµРјРµРЅС‚ РёР· РїРµСЂРµРґРЅРµР№ С‡Р°СЃС‚Рё РѕС‡РµСЂРµРґРё
 			T pop_back()
 			{
 				std::scoped_lock lock(muxQueue);
@@ -47,7 +47,7 @@ namespace olc
 				return t;
 			}
 
-			/// Добавляет элемент в конец очереди
+			/// Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† РѕС‡РµСЂРµРґРё
 			void push_back(const T& item)
 			{
 				std::scoped_lock lock(muxQueue);
@@ -57,7 +57,7 @@ namespace olc
 				cvBlocking.notify_one();
 			}
 
-			/// Добавляет элемент в начало очереди 
+			/// Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РІ РЅР°С‡Р°Р»Рѕ РѕС‡РµСЂРµРґРё 
 			void push_front(const T& item)
 			{
 				std::scoped_lock lock(muxQueue);
@@ -67,21 +67,21 @@ namespace olc
 				cvBlocking.notify_one();
 			}
 
-			/// Возвращает значение true, если в очереди нет элементов 
+			/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ true, РµСЃР»Рё РІ РѕС‡РµСЂРµРґРё РЅРµС‚ СЌР»РµРјРµРЅС‚РѕРІ 
 			bool empty()
 			{
 				std::scoped_lock lock(muxQueue);
 				return deqQueue.empty();
 			}
 
-			/// Возвращает количество элементов в очереди 
+			/// Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РѕС‡РµСЂРµРґРё 
 			size_t count()
 			{
 				std::scoped_lock lock(muxQueue);
 				return deqQueue.size();
 			}
 
-			/// Очищает очередь
+			/// РћС‡РёС‰Р°РµС‚ РѕС‡РµСЂРµРґСЊ
 			void clear()
 			{
 				std::scoped_lock lock(muxQueue);
