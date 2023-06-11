@@ -14,27 +14,27 @@ namespace olc
 
 			virtual ~client_interface()
 			{
-				// Åñëè êëèåíò óíè÷òîæåí(íåêðàñèâûé âûêëþ÷åíèå), òî ïîïûòàòüñÿ îòêëþ÷èòüñÿ îò ñåðâåðà
+				// Если клиент уничтожен(некрасивый выключение), то попытаться отключиться от сервера
 				Disconnect();
 			}
 
 		public:
-			// Ïîäæêëþ÷åíèå ê ñåðâåðó ñ ïîìîùüþ èìÿ õîñòà/ip-address and port
+			// Поджключение к серверу с помощью имя хоста/ip-address and port
 			bool Connect(const std::string& host, const uint16_t port)
 			{
 				try
 				{
-					// Ïðåîáðàçîâàíèå èìÿ_õîñòà/ip-àäðåñà â ôèçè÷åñêèé àäðåñ
+					// Преобразование имя_хоста/ip-адреса в физический адрес
 					asio::ip::tcp::resolver resolver(m_context);
 					asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
 
-					// Ñîçäàíèå ñîåäèíåíèÿ
+					// Создание соединения
 					m_connection = std::make_unique<connection<T>>(connection<T>::owner::client, m_context, asio::ip::tcp::socket(m_context), m_qMessagesIn);
 
-					// Óêàçàíèå îáúåêòó ïîäêëþ÷åíèÿ, ÷òîáû îí ïîêäëþ÷èëñÿ ê ñåðâåðó
+					// Указание объекту подключения, чтобы он покдлючился к серверу
 					m_connection->ConnectToServer(endpoints);
 
-					// Çàïóñê êîíòåêñòà è ïîòîêà
+					// Запуск контекста и потока
 					thrContext = std::thread([this]() { m_context.run(); });
 				}
 				catch (std::exception& e)
@@ -45,21 +45,21 @@ namespace olc
 				return true;
 			}
 
-			// Îòêëþ÷åíèå(êðàñèâîå) îò ñåðâåðà
+			// Отключение(красивое) от сервера
 			void Disconnect()
 			{
-				// Åñëè ñîåäèíåíèå ñóùåñòâóåò - ðàçîðâàòü åãî
+				// Если соединение существует - разорвать его
 				if (IsConnected()) m_connection->Disconnect();
 
-				// Ïðè ëþáîì ðàñêëàäå ïðåðûâàåì êîíòåêñò è ïîòîê		
+				// При любом раскладе прерываем контекст и поток		
 				m_context.stop();
 				if (thrContext.joinable()) thrContext.join();
 
-				// Óíè÷òîæàåì îáúåêò ñîåäèíåíèÿ
+				// Уничтожаем объект соединения
 				m_connection.release();
 			}
 
-			/// Ïðîâåðêà, äåéñòâèòåëüíî ëè êëèåíò ïîäêëþ÷åí ê ñåðâåðó
+			/// Проверка, действительно ли клиент подключен к серверу
 			bool IsConnected()
 			{
 				if (m_connection)
@@ -69,14 +69,14 @@ namespace olc
 			}
 
 		public:
-			/// Îòïðàâèòü ñîîáùåíèå íà ñåðâåð
+			/// Отправить сообщение на сервер
 			void Send(const message<T>& msg)
 			{
 				if (IsConnected())
 					m_connection->Send(msg);
 			}
 
-			/// Èçâëåêàòü î÷åðåäü ñîîáùåíèé ñ ñåðâåðà
+			/// Извлекать очередь сообщений с сервера
 			tsqueue<owned_message<T>>& Incoming()
 			{
 				return m_qMessagesIn;
@@ -84,16 +84,16 @@ namespace olc
 
 		protected:
 			/*
-			Êîíòåêñò Asio îáðàáàòûâàåò ïåðåäà÷ó äàííûõ, 
-			íî äëÿ âûïîëíåíèÿ ñâîåé ðàáîòû åìó íóæåí ñîáñòâåííûé ïîòîê 
+			Контекст Asio обрабатывает передачу данных, 
+			но для выполнения своей работы ему нужен собственный поток 
 			*/			
 			asio::io_context m_context;
 			std::thread thrContext;
-			/// Ó êëèåíòà åñòü åäèíñòâåííûé ýêçåìïëÿð îáúåêòà "connection", êîòîðûé îáðàáàòûâàåò ïåðåäà÷ó äàííûõ
+			/// У клиента есть единственный экземпляр объекта "connection", который обрабатывает передачу данных
 			std::unique_ptr<connection<T>> m_connection;
 
 		private:
-			/// Ýòî ïîòîêîáåçîïàñíàÿ î÷åðåäü âõîäÿùèõ ñîîáùåíèé ñ ñåðâåðà
+			/// Это потокобезопасная очередь входящих сообщений с сервера
 			tsqueue<owned_message<T>> m_qMessagesIn;
 		};
 	}
