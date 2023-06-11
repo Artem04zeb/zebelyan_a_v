@@ -12,9 +12,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/bin.dbg)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_SOURCE_DIR}/bin.rel)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_CURRENT_SOURCE_DIR}/bin.relwithdbg)
 
-project(cpp2023_test)
+project(oop_spring)
 
-find_package(doctest REQUIRED)
+find_package(doctest)
+find_package(asio REQUIRED)
 
 add_subdirectory(prj.lab)
+add_subdirectory(prj.cw)
 add_subdirectory(prj.test)
