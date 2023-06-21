@@ -9,7 +9,7 @@ project(FlagConnection)
 
 find_package(doxygen)
 
-set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/../Doxy/Doxyfile)
+set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxy/Doxyfile)
 set(DOXYGEN_CONFIGURED_INPUT ${DOXYGEN_IN})
 
 add_custom_target(doc ALL
@@ -19,7 +19,7 @@ add_custom_target(doc ALL
         VERBATIM
 )
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../Doxy/rtf/refman.rtf DESTINATION .)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Doxy/rtf/refman.rtf DESTINATION .)
 
 find_package(asio REQUIRED)
 
