@@ -18,7 +18,6 @@ namespace olc
 				Disconnect();
 			}
 
-		public:
 			// Поджключение к серверу с помощью имя хоста/ip-address and port
 			bool Connect(const std::string& host, const uint16_t port)
 			{
@@ -68,7 +67,6 @@ namespace olc
 					return false;
 			}
 
-		public:
 			/// Отправить сообщение на сервер
 			void Send(const message<T>& msg)
 			{
