@@ -14,7 +14,6 @@ namespace olc
 			tsqueue(const tsqueue<T>&) = delete;
 			virtual ~tsqueue() { clear(); }
 
-		public:
 			/// Возвращает и поддерживает элемент в начале очереди
 			const T& front()
 			{
