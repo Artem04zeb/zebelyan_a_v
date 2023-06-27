@@ -218,8 +218,6 @@ namespace olc
 			/// Вызывается при поступлении сообщения
 			virtual void OnMessage(std::shared_ptr<connection<T>> client, message<T>& msg) { }
 
-
-		protected:
 			/// Потокобезопасная очередь для входящих пакетов сообщений
 			tsqueue<owned_message<T>> m_qMessagesIn;
 
