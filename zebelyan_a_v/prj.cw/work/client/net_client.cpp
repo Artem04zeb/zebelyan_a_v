@@ -2,7 +2,8 @@
 #include <helpers/olc_net.h>
 #include <fstream>
 #include <string>
-#include <Windows.h>
+//#include <Windows.h>
+
 
 /*
 Набор возможных состояний объекта.
@@ -141,8 +142,11 @@ class CustomClient : public olc::net::client_interface<CustomMsgTypes>
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
+	//SetConsoleCP(1251);
+	//SetConsoleOutputCP(1251);
+	_setmode(_fileno(stdout), _O_U16TEXT);
+    	_setmode(_fileno(stdin),  _O_U16TEXT);
+    	_setmode(_fileno(stderr), _O_U16TEXT);
 	/// Вывод приветствия
 	std::cout << "--------------------\nДобро пожаловать в чат Flag Connection!\n\nПытаюсь подключиться к серверу...\n\n";
 	
