@@ -177,9 +177,9 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	//SetConsoleCP(1251);
 	//SetConsoleOutputCP(1251);
-	_setmode(_fileno(stdout), _O_U16TEXT);
-    	_setmode(_fileno(stdin),  _O_U16TEXT);
-    	_setmode(_fileno(stderr), _O_U16TEXT);
+	//_setmode(_fileno(stdout), _O_U16TEXT);
+    	//_setmode(_fileno(stdin),  _O_U16TEXT);
+    	//_setmode(_fileno(stderr), _O_U16TEXT);
 	/// TODO Загружает параметр порта не с прямым значением, а считывает его из конфигурационного файла и подключает через переменную
 	CustomServer server(6000);
 
