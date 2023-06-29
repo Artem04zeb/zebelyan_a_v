@@ -144,9 +144,9 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	//SetConsoleCP(1251);
 	//SetConsoleOutputCP(1251);
-	_setmode(_fileno(stdout), _O_U16TEXT);
-    	_setmode(_fileno(stdin),  _O_U16TEXT);
-    	_setmode(_fileno(stderr), _O_U16TEXT);
+	//_setmode(_fileno(stdout), _O_U16TEXT);
+    	//_setmode(_fileno(stdin),  _O_U16TEXT);
+    	//_setmode(_fileno(stderr), _O_U16TEXT);
 	/// Вывод приветствия
 	std::cout << "--------------------\nДобро пожаловать в чат Flag Connection!\n\nПытаюсь подключиться к серверу...\n\n";
 	
