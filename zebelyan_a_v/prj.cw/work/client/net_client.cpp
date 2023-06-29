@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 //#include <Windows.h>
+#include <cstdlib> 
 
 
 /*
@@ -141,7 +142,8 @@ class CustomClient : public olc::net::client_interface<CustomMsgTypes>
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
+	//setlocale(LC_ALL, "Russian");
+	std::system("chcp 1251");
 	//SetConsoleCP(1251);
 	//SetConsoleOutputCP(1251);
 	//_setmode(_fileno(stdout), _O_U16TEXT);
